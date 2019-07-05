@@ -3,6 +3,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const TerserJSPlugin = require('terser-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const postcssPresetEnv = require('postcss-preset-env');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const SOURCE_DIR = path.join(__dirname, 'src/renderer');
 const BUILD_DIR = path.join(__dirname, 'build');
@@ -12,7 +13,7 @@ const isDevelopment = process.env.NODE_ENV !== 'production';
 const devServerPort = 9000;
 
 module.exports = {
-    entry: path.join(SOURCE_DIR, 'renderer.js'),
+    entry: path.join(SOURCE_DIR, 'index.js'),
     output: {
         path: BUILD_DIR,
         filename: 'renderer.js',
@@ -35,14 +36,15 @@ module.exports = {
             },
             {
                 test: /\.s(a|c)ss$/,
+                include: SOURCE_DIR,
                 use: [
                     MiniCssExtractPlugin.loader,
                     {
                         loader: 'css-loader',
                         options: {
-                            modules: {
+                            /* modules: {
                                 localIdentName: '[name]_[local]_[hash:base64:5]',
-                            },
+                            }, */
                             url: false,
                             importLoaders: 2,
                             sourceMap: isDevelopment,
@@ -75,6 +77,7 @@ module.exports = {
             filename: '[name].css',
             chunkFilename: '[id].css',
         }),
+        new HtmlWebpackPlugin(),
     ],
     devServer: {
         contentBase: SERVER_BASE_DIR,
