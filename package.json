@@ -1,6 +1,6 @@
 {
   "name": "electron-html-reader",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "The app for open html files from a file system.",
   "main": "build/main/main.js",
   "scripts": {

@@ -2,3 +2,4 @@ node_modules
 dist
 build
 electron-builder.env
+.vscode
