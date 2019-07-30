@@ -4,9 +4,10 @@ const TerserJSPlugin = require('terser-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const postcssPresetEnv = require('postcss-preset-env');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin');
 
 const SOURCE_DIR = path.join(__dirname, 'src/renderer');
-const BUILD_DIR = path.join(__dirname, 'build');
+const BUILD_DIR = path.join(__dirname, 'build/renderer');
 const SERVER_BASE_DIR = BUILD_DIR;
 
 const isDevelopment = process.env.NODE_ENV !== 'production';
@@ -78,6 +79,12 @@ module.exports = {
             chunkFilename: '[id].css',
         }),
         new HtmlWebpackPlugin(),
+        new AddAssetHtmlPlugin({
+            filepath: path.join(SOURCE_DIR, 'assets/all.min.css'),
+            publicPath: 'css',
+            outputPath: 'css',
+            typeOfAsset: 'css',
+        }),
     ],
     devServer: {
         contentBase: SERVER_BASE_DIR,

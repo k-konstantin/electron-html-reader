@@ -9,27 +9,47 @@ html, body
     display: flex
     height: 100vh
 
-.buttons
-    width: 240px
+.left-panel
+    width: 300px
     height: 100%
+    display: flex
+    flex-direction: column
     background-color: grey
-    overflow-y: scroll
     background-color: azure
     border-right: 2px solid black
 
+.resources-list
+    flex: 1
+    overflow-y: scroll
+
+.open-folder-btn
+    height: 40px
+    min-height: 40px
+    font-size: 16px
+
 .btn 
-    width: 220px
-    height: 20px
+    display: flex
+    justify-content: space-between
+    height: 30px
+    min-height: 30px
     margin: 0 auto
+    padding-left: 10px
     border: 1px black solid
-    line-height: 20px
-    text-align: center
-    font-size: 14px
+    line-height: 30px
+    font-size: 16px
     cursor: pointer
+
+    .resource-title
+        flex: 1
+
+    .open-resource-in-explorer-btn
+        display: flex
+        justify-content: center
+        align-items: center
+        width: 30px
 
     &.selected
         background-color: orange
-        pointer-events: none
 
 .content-container
     flex: 1

@@ -12,8 +12,8 @@ let mainWindow;
 function createWindow() {
     // Create the browser window.
     mainWindow = new BrowserWindow({
-        width: 800,
-        height: 600,
+        width: 1280,
+        height: 720,
         webPreferences: {
             preload: path.join(__dirname, 'preload.js'),
             nodeIntegration: true,
@@ -22,7 +22,7 @@ function createWindow() {
 
     // and load the index.html of the app.
 
-    mainWindow.loadFile(path.join(__dirname, '../index.html'));
+    mainWindow.loadFile(path.join(__dirname, '../renderer/index.html'));
 
     // Open the DevTools.
     // mainWindow.webContents.openDevTools()

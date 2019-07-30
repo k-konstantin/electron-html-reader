@@ -1,4 +1,4 @@
-import { ipcMain, dialog, BrowserWindow } from 'electron';
+import { ipcMain, dialog, BrowserWindow, shell } from 'electron';
 import { dispatchToWindow } from 'redux-electron-global-dispatch';
 import _ from 'lodash';
 
@@ -8,7 +8,9 @@ ipcMain.on('@@GLOBAL_REDUX_ACTION', (event, action) => {
     const currentWindow = BrowserWindow.getFocusedWindow();
 
     console.log('BUTTON_PRESSED IN RENDERER', action);
-    if (action.type === 'OPEN_FOLDER') {
+    const { type } = action;
+
+    if (type === 'OPEN_FOLDER') {
         dialog.showOpenDialog(
             {
                 properties: ['openDirectory'],
@@ -22,5 +24,10 @@ ipcMain.on('@@GLOBAL_REDUX_ACTION', (event, action) => {
                 }
             }
         );
+    } else if (type === 'REVEAL_IN_EXPLORER') {
+        const {
+            payload: { fileURI },
+        } = action;
+        shell.showItemInFolder(fileURI);
     }
 });

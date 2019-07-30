@@ -48,21 +48,30 @@ class MainPage extends Component {
         };
     };
     render() {
-        const { animations, selectedId, isFetching, selectAnimation, openFolder } = this.props;
+        const { animations, selectedId, isFetching, selectAnimation, openFolder, revealInExplorer } = this.props;
 
         return (
             <div className='page'>
-                <div className='buttons'>
-                    <div onClick={openFolder}>Open</div>
-                    {isFetching ? (
-                        <div>Loading</div>
-                    ) : (
-                        animations.map((path, index) => (
-                            <div key={path} title={path} className={index === selectedId ? 'btn selected' : 'btn'} onClick={() => selectAnimation(index)}>
-                                {path.slice(path.lastIndexOf('\\') + 1)}
-                            </div>
-                        ))
-                    )}
+                <div className='left-panel'>
+                    <button className='open-folder-btn' onClick={openFolder}>
+                        Открыть папку
+                    </button>
+                    <div className='resources-list'>
+                        {isFetching ? (
+                            <div>Loading</div>
+                        ) : (
+                            animations.map((path, index) => (
+                                <div key={path} className={index === selectedId ? 'btn selected' : 'btn'}>
+                                    <div className='resource-title' title={path} onClick={event => selectAnimation(index)}>
+                                        {path.slice(path.lastIndexOf('\\') + 1)}
+                                    </div>
+                                    <div className='open-resource-in-explorer-btn' title='Открыть в проводнике' onClick={event => revealInExplorer(path)}>
+                                        <i class='far fa-folder' />
+                                    </div>
+                                </div>
+                            ))
+                        )}
+                    </div>
                 </div>
                 <div className='content-container'>
                     <div className='content-title' title={animations[selectedId]}>

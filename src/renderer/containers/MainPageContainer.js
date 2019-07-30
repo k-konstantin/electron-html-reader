@@ -1,10 +1,10 @@
-import { connect } from 'react-redux'
-import MainPage from '../components/MainPage'
+import { connect } from 'react-redux';
+import MainPage from '../components/MainPage';
 
-import { selectAnimation, nextAnimation, prevAnimation, openFolder } from '../store/actions'
+import { selectAnimation, nextAnimation, prevAnimation, openFolder, revealInExplorer } from '../store/actions';
 
 const MainPageContainer = connect(
-    (state) => ({
+    state => ({
         animations: state.animations,
         selectedId: state.selectedId,
         isFetching: state.isFetching,
@@ -14,10 +14,8 @@ const MainPageContainer = connect(
         nextAnimation,
         prevAnimation,
         openFolder,
+        revealInExplorer,
     }
-)(MainPage)
+)(MainPage);
 
-export default MainPageContainer
-
-
-
+export default MainPageContainer;
