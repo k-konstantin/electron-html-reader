@@ -17,7 +17,7 @@
   "dependencies": {
     "electron-log": "^3.0.6",
     "electron-updater": "^4.0.14",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.13",
     "redux-electron-global-dispatch": "^0.3.0"
   },
   "devDependencies": {
