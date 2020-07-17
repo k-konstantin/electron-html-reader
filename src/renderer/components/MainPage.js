@@ -48,7 +48,15 @@ class MainPage extends Component {
         };
     };
     render() {
-        const { animations, selectedId, isFetching, selectAnimation, openFolder, revealInExplorer } = this.props;
+        const { 
+            animations, 
+            selectedId, 
+            isFetching, 
+            selectAnimation, 
+            openFolder, 
+            revealInExplorer, 
+            takeScreenShot,
+        } = this.props;
 
         return (
             <div className='page'>
@@ -56,6 +64,7 @@ class MainPage extends Component {
                     <button className='open-folder-btn' onClick={openFolder}>
                         Открыть папку
                     </button>
+                    <button className='print-btn' onClick={takeScreenShot}>Распечатать</button>
                     <div className='resources-list'>
                         {isFetching ? (
                             <div>Loading</div>

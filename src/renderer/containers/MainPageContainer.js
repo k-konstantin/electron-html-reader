@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import MainPage from '../components/MainPage';
 
-import { selectAnimation, nextAnimation, prevAnimation, openFolder, revealInExplorer } from '../store/actions';
+import { selectAnimation, nextAnimation, prevAnimation, openFolder, revealInExplorer, takeScreenShot } from '../store/actions';
 
 const MainPageContainer = connect(
     state => ({
@@ -15,6 +15,7 @@ const MainPageContainer = connect(
         prevAnimation,
         openFolder,
         revealInExplorer,
+        takeScreenShot,
     }
 )(MainPage);
 

@@ -1,13 +1,13 @@
-import { ipcMain, dialog, BrowserWindow, shell } from 'electron';
+import { ipcMain, dialog, BrowserWindow, shell, app } from 'electron';
 import { dispatchToWindow } from 'redux-electron-global-dispatch';
 import _ from 'lodash';
 
 import getAnimations from './getAnimations';
+import {saveImageToAppFolder} from './services/files'
 
 ipcMain.on('@@GLOBAL_REDUX_ACTION', (event, action) => {
     const currentWindow = BrowserWindow.getFocusedWindow();
 
-    console.log('BUTTON_PRESSED IN RENDERER', action);
     const { type } = action;
 
     if (type === 'OPEN_FOLDER') {
@@ -29,5 +29,16 @@ ipcMain.on('@@GLOBAL_REDUX_ACTION', (event, action) => {
             payload: { fileURI },
         } = action;
         shell.showItemInFolder(fileURI);
+    } else if (type === 'SAVE_BASE64_TO_IMAGE') {
+        const {
+            payload: { data, fileName },
+        } = action;
+
+        saveImageToAppFolder(data, fileName).then(() => {
+            console.log('Image Saved')
+        }).catch((err) => {
+            console.log('Image Save Failed')
+            console.log(err);
+        })
     }
 });

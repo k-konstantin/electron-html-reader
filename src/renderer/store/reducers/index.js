@@ -1,3 +1,5 @@
+import {appScreenshot} from '../../services/screenshots'
+
 const initialState = {
     isFetching: false,
     selectedId: 0,
@@ -31,6 +33,15 @@ export default (state = initialState, action) => {
                 selectedId = count - 1;
             }
             return { ...state, selectedId };
+        }
+        case 'START_TAKING_SCREENSHOT': {
+            /*
+            new appScreenshot((data) => {
+                console.log('done')
+                console.log(data)
+            })
+            */
+            return state
         }
     }
     return state
