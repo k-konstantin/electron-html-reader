@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {getFileNameFromSrc} from '../store/selectors'
 
 class MainPage extends Component {
     state = {
@@ -11,6 +12,11 @@ class MainPage extends Component {
         this.iframeContainerRef = React.createRef();
         this.onKeyUp = this.onKeyUp.bind(this);
     }
+    componentDidUpdate(prevProps) {
+        if (prevProps.isTakingScreenshots !== this.props.isTakingScreenshots) {
+            this.onWindowResize()
+        }
+    }
     componentDidMount() {
         window.addEventListener('resize', this.onWindowResize);
         document.addEventListener('keydown', this.onKeyUp);
@@ -21,6 +27,9 @@ class MainPage extends Component {
         document.removeEventListener('keydown', this.onKeyUp);
     }
     onKeyUp(event) {
+        if (this.props.isTakingScreenshots) {
+            return
+        }
         if (event.key === 'ArrowRight') {
             this.props.nextAnimation();
         } else if (event.key === 'ArrowLeft') {
@@ -56,11 +65,16 @@ class MainPage extends Component {
             openFolder, 
             revealInExplorer, 
             takeScreenShot,
+            isTakingScreenshots,
+            stopScreenShot,
         } = this.props;
 
         return (
             <div className='page'>
-                <div className='left-panel'>
+                {isTakingScreenshots && (
+                    <button className={'stop-screenshot-btn'} onClick={stopScreenShot}>Остановить скриншоты</button>
+                )}
+                <div className={`left-panel ${isTakingScreenshots ? 'minimize' : ''}`}>
                     <button className='open-folder-btn' onClick={openFolder}>
                         Открыть папку
                     </button>
@@ -72,7 +86,7 @@ class MainPage extends Component {
                             animations.map((path, index) => (
                                 <div key={path} className={index === selectedId ? 'btn selected' : 'btn'}>
                                     <div className='resource-title' title={path} onClick={event => selectAnimation(index)}>
-                                        {path.slice(path.lastIndexOf('\\') + 1)}
+                                        {getFileNameFromSrc(path)}
                                     </div>
                                     <div className='open-resource-in-explorer-btn' title='Открыть в проводнике' onClick={event => revealInExplorer(path)}>
                                         <i class='far fa-folder' />
@@ -84,7 +98,7 @@ class MainPage extends Component {
                 </div>
                 <div className='content-container'>
                     <div className='content-title' title={animations[selectedId]}>
-                        {(animations[selectedId] && animations[selectedId].slice(animations[selectedId].lastIndexOf('\\') + 1)) || 'Untitled'}
+                        {(animations[selectedId] && getFileNameFromSrc(animations[selectedId])) || 'Untitled'}
                     </div>
                     <div ref={this.iframeContainerRef} className='iframe-container'>
                         <iframe src={animations[selectedId]} style={this.state} />

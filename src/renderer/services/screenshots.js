@@ -1,4 +1,4 @@
-const {desktopCapturer} = require('electron');
+const {desktopCapturer, remote} = require('electron');
 
 /**
 * Create a screenshot of your electron app. You can modify which process to render in the conditional line #61.
@@ -128,7 +128,10 @@ export const createScreenShot = (imageFormat = 'image/jpeg') => new Promise((res
         document.body.appendChild(video);
     };
 
-    desktopCapturer.getSources({ types: ['window', 'screen'], thumbnailSize: {width: 1920, height: 1080} }).then(async sources => {
+    const bounds = remote.getCurrentWindow().webContents.getOwnerBrowserWindow().getBounds()
+    console.log(bounds)
+    console.log(window.outerWidth, window.outerHeight)
+    desktopCapturer.getSources({ types: ['window', 'screen'], thumbnailSize: {width: bounds.width, height: bounds.height} }).then(async sources => {
         console.log(sources);
         
         for (const source of sources) {
