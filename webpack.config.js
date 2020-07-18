@@ -87,12 +87,18 @@ module.exports = {
             chunkFilename: '[id].css',
         }),
         new HtmlWebpackPlugin(),
-        new AddAssetHtmlPlugin({
-            filepath: path.join(SOURCE_DIR, 'assets/all.min.css'),
-            publicPath: 'css',
-            outputPath: 'css',
-            typeOfAsset: 'css',
-        }),
+        new AddAssetHtmlPlugin([{
+                filepath: path.join(SOURCE_DIR, 'assets/all.min.css'),
+                publicPath: 'css',
+                outputPath: 'css',
+                typeOfAsset: 'css',
+            }, {
+                filepath: path.join(SOURCE_DIR, 'assets/fonts.css'),
+                publicPath: 'css',
+                outputPath: 'css',
+                typeOfAsset: 'css',
+            },
+        ]),
     ],
     devServer: {
         contentBase: SERVER_BASE_DIR,

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+import ResourcesList from './ResourcesList'
 import {getFileNameFromSrc} from '../store/selectors';
 import styles from '../css/main.sass'
 
@@ -80,21 +81,17 @@ class MainPage extends Component {
                     <button className={styles.openFolderBtn} onClick={openFolder}>
                         Открыть папку
                     </button>
-                    <button className='print-btn' onClick={takeScreenShot}>Распечатать</button>
+                    <button onClick={takeScreenShot}>Распечатать</button>
                     <div className={styles.resourcesList}>
                         {isFetching ? (
                             <div>Loading</div>
                         ) : (
-                            animations.map((path, index) => (
-                                <div key={path} className={index === selectedId ? `${styles.btn} ${styles.selected}` : styles.btn}>
-                                    <div className={styles.resourceTitle} title={path} onClick={event => selectAnimation(index)}>
-                                        {getFileNameFromSrc(path)}
-                                    </div>
-                                    <div className={styles.openResourceInExplorerBtn} title='Открыть в проводнике' onClick={event => revealInExplorer(path)}>
-                                        <i class='far fa-folder' />
-                                    </div>
-                                </div>
-                            ))
+                            <ResourcesList 
+                                selectedId={selectedId}
+                                animations={animations}
+                                selectAnimation={selectAnimation}
+                                revealInExplorer={revealInExplorer}
+                            />
                         )}
                     </div>
                 </div>
