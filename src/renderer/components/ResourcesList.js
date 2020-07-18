@@ -3,6 +3,7 @@ import {List, ListItem, ListItemText, ListItemSecondaryAction, IconButton} from 
 import {FolderOpen} from '@material-ui/icons'
 
 import {getFileNameFromSrc} from '../store/selectors';
+import styles from '../css/ResourcesList.sass'
 
 const ResourcesList = ({
     selectedId,
@@ -15,7 +16,7 @@ const ResourcesList = ({
     const onRevealInExplorer = (path) => () => revealInExplorer(path)
 
     return (
-        <List dense>
+        <List dense classes={{root: styles.root}}>
             {animations.map((path, index) => (
                 <>
                     <ListItem 

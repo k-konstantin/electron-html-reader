@@ -88,11 +88,6 @@ module.exports = {
         }),
         new HtmlWebpackPlugin(),
         new AddAssetHtmlPlugin([{
-                filepath: path.join(SOURCE_DIR, 'assets/all.min.css'),
-                publicPath: 'css',
-                outputPath: 'css',
-                typeOfAsset: 'css',
-            }, {
                 filepath: path.join(SOURCE_DIR, 'assets/fonts.css'),
                 publicPath: 'css',
                 outputPath: 'css',

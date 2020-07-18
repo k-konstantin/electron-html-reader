@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {CircularProgress, Backdrop, Button} from '@material-ui/core'
 
 import ResourcesList from './ResourcesList'
 import {getFileNameFromSrc} from '../store/selectors';
@@ -74,26 +75,27 @@ class MainPage extends Component {
 
         return (
             <div className={styles.page}>
+                <Backdrop classes={{root: styles.backdrop}} open={isFetching}>
+                    <CircularProgress />
+                </Backdrop>
                 {isTakingScreenshots && (
                     <button className={styles.stopScreenshotBtn} onClick={stopScreenShot}>Остановить скриншоты</button>
                 )}
                 <div className={`${styles.leftPanel} ${isTakingScreenshots ? styles.minimize : ''}`}>
-                    <button className={styles.openFolderBtn} onClick={openFolder}>
+                    <Button variant="contained" color="primary" onClick={openFolder}>
                         Открыть папку
-                    </button>
-                    <button onClick={takeScreenShot}>Распечатать</button>
-                    <div className={styles.resourcesList}>
-                        {isFetching ? (
-                            <div>Loading</div>
-                        ) : (
-                            <ResourcesList 
-                                selectedId={selectedId}
-                                animations={animations}
-                                selectAnimation={selectAnimation}
-                                revealInExplorer={revealInExplorer}
-                            />
-                        )}
-                    </div>
+                    </Button>
+                    <Button variant="contained" color="secondary" onClick={takeScreenShot}>
+                        Распечатать
+                    </Button>
+                    {animations.length > 0 && (
+                        <ResourcesList 
+                            selectedId={selectedId}
+                            animations={animations}
+                            selectAnimation={selectAnimation}
+                            revealInExplorer={revealInExplorer}
+                        />
+                    )}
                 </div>
                 <div className={styles.contentContainer}>
                     <div className={styles.contentTitle} title={animations[selectedId]}>
