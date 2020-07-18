@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import {getFileNameFromSrc} from '../store/selectors'
+
+import {getFileNameFromSrc} from '../store/selectors';
+import styles from '../css/main.sass'
 
 class MainPage extends Component {
     state = {
@@ -70,25 +72,25 @@ class MainPage extends Component {
         } = this.props;
 
         return (
-            <div className='page'>
+            <div className={styles.page}>
                 {isTakingScreenshots && (
-                    <button className={'stop-screenshot-btn'} onClick={stopScreenShot}>Остановить скриншоты</button>
+                    <button className={styles.stopScreenshotBtn} onClick={stopScreenShot}>Остановить скриншоты</button>
                 )}
-                <div className={`left-panel ${isTakingScreenshots ? 'minimize' : ''}`}>
-                    <button className='open-folder-btn' onClick={openFolder}>
+                <div className={`${styles.leftPanel} ${isTakingScreenshots ? styles.minimize : ''}`}>
+                    <button className={styles.openFolderBtn} onClick={openFolder}>
                         Открыть папку
                     </button>
                     <button className='print-btn' onClick={takeScreenShot}>Распечатать</button>
-                    <div className='resources-list'>
+                    <div className={styles.resourcesList}>
                         {isFetching ? (
                             <div>Loading</div>
                         ) : (
                             animations.map((path, index) => (
-                                <div key={path} className={index === selectedId ? 'btn selected' : 'btn'}>
-                                    <div className='resource-title' title={path} onClick={event => selectAnimation(index)}>
+                                <div key={path} className={index === selectedId ? `${styles.btn} ${styles.selected}` : styles.btn}>
+                                    <div className={styles.resourceTitle} title={path} onClick={event => selectAnimation(index)}>
                                         {getFileNameFromSrc(path)}
                                     </div>
-                                    <div className='open-resource-in-explorer-btn' title='Открыть в проводнике' onClick={event => revealInExplorer(path)}>
+                                    <div className={styles.openResourceInExplorerBtn} title='Открыть в проводнике' onClick={event => revealInExplorer(path)}>
                                         <i class='far fa-folder' />
                                     </div>
                                 </div>
@@ -96,11 +98,11 @@ class MainPage extends Component {
                         )}
                     </div>
                 </div>
-                <div className='content-container'>
-                    <div className='content-title' title={animations[selectedId]}>
+                <div className={styles.contentContainer}>
+                    <div className={styles.contentTitle} title={animations[selectedId]}>
                         {(animations[selectedId] && getFileNameFromSrc(animations[selectedId])) || 'Untitled'}
                     </div>
-                    <div ref={this.iframeContainerRef} className='iframe-container'>
+                    <div ref={this.iframeContainerRef} className={styles.iframeContainer}>
                         <iframe src={animations[selectedId]} style={this.state} />
                     </div>
                 </div>
