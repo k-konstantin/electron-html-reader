@@ -8,6 +8,7 @@ import {getSelectedResourceId, getAnimations, isTakingSreenshots, getFileNameFro
 export function* onFetchUsers(action) {
     try {
         console.log('START_TAKING_SCREENSHOT')
+        yield delay(100)
         const selectedId = yield select(getSelectedResourceId)
         const animations = yield select(getAnimations)
         const name = getFileNameFromSrc(animations[selectedId])
@@ -15,7 +16,7 @@ export function* onFetchUsers(action) {
         const data = yield createScreenShot()
         yield put(saveBase64ToImageFile(data, name))
 
-        if (selectedId < 10) {
+        if (selectedId < animations.length - 1) {
             yield put(nextAnimation())
             yield delay(2000)
             const isScreenshotingActive = yield select(isTakingSreenshots)
