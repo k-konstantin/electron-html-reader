@@ -15,54 +15,44 @@ html, body
     display: flex
     flex-direction: column
 
-    &.minimize
-        display: none
+.stopScreenshotPanel
+    position: absolute
+    top: 0
+    left: 0
+    width: 100px
+    height: 100%
+    opacity: 0
+    z-index: 10
+
+    &:hover
+        opacity: 1
 
 .resourcesList
     flex: 1
     overflow-y: auto
-
-.openFolderBtn
-    height: 40px
-    min-height: 40px
-    font-size: 16px
-
-.btn 
-    display: flex
-    justify-content: space-between
-    height: 30px
-    min-height: 30px
-    margin: 0 auto
-    padding-left: 10px
-    border: 1px black solid
-    line-height: 30px
-    font-size: 16px
-    cursor: pointer
-
-    .resourceTitle
-        flex: 1
-
-    .openResourceInExplorerBtn
-        display: flex
-        justify-content: center
-        align-items: center
-        width: 30px
-
-    &.selected
-        background-color: orange
 
 .contentContainer
     flex: 1
     display: flex
     flex-direction: column
 
+.sreenshots
+    .contentTitle 
+        
+    .iframeContainer 
+        margin: 2px
+
+    iframe 
+        box-shadow: none
+        outline: 1px solid gray
+
+
 .contentTitle 
     padding: 5px
     width: 100%
     text-align: center
-    font-size: 1.75vw
-    font-weight: bold
-    background-color: burlywood
+    font-family: Roboto
+    font-size: 16px
 
 .iframeContainer 
     flex: 1
@@ -76,12 +66,6 @@ iframe
     border: none
     transform-origin: 0 0
     box-shadow: 0px 0px 20px black
-
-.stopScreenshotBtn
-    position: absolute
-    top: 0
-    left: 0
-    width: 100px
 
 .backdrop 
     z-index: 10 !important

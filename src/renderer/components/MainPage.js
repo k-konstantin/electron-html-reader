@@ -74,32 +74,37 @@ class MainPage extends Component {
         } = this.props;
 
         return (
-            <div className={styles.page}>
+            <div className={`${styles.page} ${isTakingScreenshots ? styles.sreenshots : ''}`}>
                 <Backdrop classes={{root: styles.backdrop}} open={isFetching}>
                     <CircularProgress />
                 </Backdrop>
-                {isTakingScreenshots && (
-                    <button className={styles.stopScreenshotBtn} onClick={stopScreenShot}>Остановить скриншоты</button>
+                {isTakingScreenshots ? (
+                    <div className={styles.stopScreenshotPanel}>
+                        <Button variant="contained" color="primary" onClick={stopScreenShot}>
+                            Остановить скриншоты
+                        </Button>
+                    </div>
+                ) : (
+                    <div className={styles.leftPanel}>
+                        <Button variant="contained" color="primary" onClick={openFolder}>
+                            Открыть папку
+                        </Button>
+                        <Button variant="contained" color="secondary" disabled={animations.length === 0} onClick={takeScreenShot}>
+                            Распечатать
+                        </Button>
+                        {animations.length > 0 && (
+                            <ResourcesList 
+                                selectedId={selectedId}
+                                animations={animations}
+                                selectAnimation={selectAnimation}
+                                revealInExplorer={revealInExplorer}
+                            />
+                        )}
+                    </div>
                 )}
-                <div className={`${styles.leftPanel} ${isTakingScreenshots ? styles.minimize : ''}`}>
-                    <Button variant="contained" color="primary" onClick={openFolder}>
-                        Открыть папку
-                    </Button>
-                    <Button variant="contained" color="secondary" onClick={takeScreenShot}>
-                        Распечатать
-                    </Button>
-                    {animations.length > 0 && (
-                        <ResourcesList 
-                            selectedId={selectedId}
-                            animations={animations}
-                            selectAnimation={selectAnimation}
-                            revealInExplorer={revealInExplorer}
-                        />
-                    )}
-                </div>
                 <div className={styles.contentContainer}>
                     <div className={styles.contentTitle} title={animations[selectedId]}>
-                        {(animations[selectedId] && getFileNameFromSrc(animations[selectedId])) || 'Untitled'}
+                        {(animations[selectedId] && `${getFileNameFromSrc(animations[selectedId])} (${selectedId + 1} / ${animations.length})`) || 'Untitled'}
                     </div>
                     <div ref={this.iframeContainerRef} className={styles.iframeContainer}>
                         <iframe src={animations[selectedId]} style={this.state} />
