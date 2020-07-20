@@ -8,7 +8,7 @@ export const saveImageToAppFolder = (data, name) => new Promise((resolve, reject
     if (!fs.existsSync(dir)){
         fs.mkdirSync(dir);
     }
-    const src = path.join(dir, `${name}.jpeg`);
+    const src = path.join(dir, `${name}.png`);
 
     fs.writeFile(src, data, function(err) {
         if (err) {

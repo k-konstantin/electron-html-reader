@@ -11,7 +11,7 @@ export function* onFetchUsers(action) {
         yield delay(100)
         const selectedId = yield select(getSelectedResourceId)
         const animations = yield select(getAnimations)
-        const name = getFileNameFromSrc(animations[selectedId])
+        const name = `${(selectedId + 1).toString().padStart(3, '0')}-${getFileNameFromSrc(animations[selectedId])}`
 
         const data = yield createScreenShot()
         yield put(saveBase64ToImageFile(data, name))

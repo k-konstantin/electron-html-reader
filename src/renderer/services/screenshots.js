@@ -138,7 +138,7 @@ export const createScreenShot = (imageFormat = 'image/jpeg') => new Promise((res
             // Filter: main screen
             
             if (source.name === document.title) {
-                resolve(source.thumbnail.toJPEG(100))
+                resolve(source.thumbnail.toPNG(1))
                 /*
                 try{
                     const stream = await navigator.mediaDevices.getUserMedia({
