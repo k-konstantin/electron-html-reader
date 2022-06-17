@@ -34,7 +34,7 @@
     "babel-loader": "^8.0.6",
     "cross-env": "^5.2.0",
     "css-loader": "^3.0.0",
-    "electron": "^5.0.5",
+    "electron": "^15.5.5",
     "electron-builder": "^20.44.4",
     "glob": "^7.1.4",
     "html-webpack-plugin": "^3.2.0",
